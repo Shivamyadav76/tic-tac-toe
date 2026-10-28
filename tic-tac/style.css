@@ -1,0 +1,220 @@
+:root {
+  --bg-dark: #0a0e17;
+  --card-bg: rgba(22, 31, 51, 0.75);
+  --x-color: #00f3ff;
+  --x-glow: rgba(0, 243, 255, 0.45);
+  --o-color: #ff007f;
+  --o-glow: rgba(255, 0, 127, 0.45);
+  --text-main: #f0f4fc;
+  --text-muted: #627293;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at 50% 20%, #151c2e 0%, var(--bg-dark) 80%);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.app-wrapper {
+  background: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  padding: 30px;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.glitch-title {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+  text-align: center;
+  background: linear-gradient(90deg, var(--x-color), #fff, var(--o-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.mode-selector {
+  display: flex;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 4px;
+  border-radius: 12px;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+
+.mode-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.mode-btn.active {
+  background: #202b42;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.scoreboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.score-card {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.score-card .label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+.score-card .score {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-top: 4px;
+}
+
+.player-x-card .score { color: var(--x-color); }
+.player-o-card .score { color: var(--o-color); }
+
+.score-card.active-turn {
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.status-banner {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+.board-container {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 96px);
+  grid-template-rows: repeat(3, 96px);
+  gap: 12px;
+  position: relative;
+}
+
+.cell {
+  background: rgba(13, 20, 36, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: transparent;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cell:hover:empty {
+  background: rgba(25, 37, 64, 0.6);
+  transform: scale(0.97);
+}
+
+.cell.x {
+  color: var(--x-color);
+  text-shadow: 0 0 16px var(--x-glow);
+}
+
+.cell.o {
+  color: var(--o-color);
+  text-shadow: 0 0 16px var(--o-glow);
+}
+
+.cell.winner {
+  background: rgba(255, 255, 255, 0.12);
+  transform: scale(1.04);
+}
+
+.strike-line {
+  position: absolute;
+  background: #ffffff;
+  box-shadow: 0 0 12px #fff;
+  z-index: 10;
+  display: none;
+  transform-origin: center left;
+  border-radius: 4px;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.control-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #00f3ff, #0088ff);
+  color: #06101e;
+  font-weight: 800;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.control-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 243, 255, 0.35);
+}
+
+.control-btn.outline {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.control-btn.outline:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: none;
+}
